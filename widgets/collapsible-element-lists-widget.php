@@ -470,15 +470,55 @@ $this->add_control(
 }
 */
 
-protected function render() {
-
-$settings = $this->get_settings_for_display();
-
-// Render the collapsible element lists with the options set by the user
-
+    public function render() {
+        $settings = $this->get_settings_for_display();
+        $number_of_parents = $settings['Collapsible_Elements_Widget_number_of_parents'];
+        $number_of_children = $settings['Collapsible_Elements_Widget_number_of_children'];
+        $parent_names = explode("\n", $settings['Collapsible_Elements_Widget_parent_names']);
+        $child_names = explode("\n", $settings['Collapsible_Elements_Widget_child_names']);
+        $content_type = $settings['Collapsible_Elements_Widget_content_type'];
+        $text_content = $settings['Collapsible_Elements_Widget_text_content'];
+        $template_id = $settings['Collapsible_Elements_Widget_template_id'];
+$html = '<h2>Lista di elementi a scomparsa</h2>';
+for ($i = 0; $i < $number_of_parents; $i++) {
+$html .= '<div class="my-content">
+<button class="my-collapsible my-collapsible-parent">' . $parent_names[$i] . '</button>
+<div class="my-content closed">';
+for ($j = 0; $j < $number_of_children; $j++) {
+$html .= '<button class="my-collapsible">' . $child_names[$j] . '</button>
+<div class="my-content closed">';
+if ($content_type === 'text') {
+$html .= '<p>' . $text_content . '</p>';
+} else if ($content_type === 'template') {
+$html .= Elementor::instance()->frontend->get_builder_content_for_display( $template_id );
+}
+$html .= '</div>';
+}
+$html .= '</div>
+</div>';
+}
+$html .= '<script>
+$(document).ready(function(){
+var coll = document.getElementsByClassName("my-collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+coll[i].addEventListener("click", function() {
+this.classList.toggle("active");
+var content = this.nextElementSibling;
+if (content.style.maxHeight){
+content.style.maxHeight = null;
+} else {
+content.style.maxHeight = content.scrollHeight + "px";
+}
+});
+}
+});
+</script>';
+return $html;
 }
 
 }
+
 
 // Register the widget
 
@@ -518,22 +558,7 @@ exit;
 //Collapsible_Elements_Widget::instance();
 
 
-    function render() {
-        $settings = $this->get_settings_for_display();
-        $template_id = $settings['collapsible_element_lists_content_template'];
-        $template_content = \Elementor\Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
-        ?>
-        <div class="my-content">
-            <button class="my-collapsible my-collapsible-parent"><?php echo $settings['collapsible_element_lists_parent_name'] ?></button>
-            <div class="my-content closed">
-                <button class="my-collapsible"><?php echo $settings['collapsible_element_lists_child_name'] ?></button>
-                <div class="my-content closed">
-                    <?php echo $template_content; ?>
-                </div>
-            </div>
-        </div>
-        <?php
-    }
+
 
 
 
