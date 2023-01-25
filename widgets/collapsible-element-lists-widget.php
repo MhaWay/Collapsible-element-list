@@ -35,7 +35,7 @@ class Collapsible_Elements_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'CELs', 'my-plugin-domain' );
+		return esc_html__( 'CELs', 'Collapsible Element Lists' );
 	}
 
 	/**
@@ -385,90 +385,6 @@ protected function _register_controls() {
 
 }
 
-/*
-protected function _register_controls() {
-    $this->start_controls_section(
-        'Collapsible_Elements_Widget_number_of_parents',
-        [
-            'label' => __( 'Collapsible Element Lists', 'collapsible-element-lists' ),
-        ]
-    );
-
-$this->add_control(
-    'Collapsible_Elements_Widget_number_of_parents',
-    [
-        'label' => __( 'Number of Parent Elements', 'collapsible-element-lists' ),
-        'type' => \Elementor\Controls_Manager::NUMBER,
-        'default' => 2,
-    ]
-);
-
-$this->add_control(
-        'Collapsible_Elements_Widget_number_of_children',
-        [
-            'label' => __( 'Number of Child Elements', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::NUMBER,
-            'default' => 2,
-        ]
-    );
-
-    $this->add_control(
-        'Collapsible_Elements_Widget_parent_names',
-        [
-            'label' => __( 'Parent Element Names', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::TEXTAREA,
-            'default' => __( "Parent 1\nParent 2", 'collapsible-element-lists' ),
-        ]
-    );
-    
-    $this->add_control(
-        'Collapsible_Elements_Widget_child_names',
-        [
-            'label' => __( 'Child Element Names', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::TEXTAREA,
-            'default' => __( "Child 1\nChild 2", 'collapsible-element-lists' ),
-        ]
-    );
-    
-    $this->add_control(
-        'Collapsible_Elements_Widget_content_type',
-        [
-            'label' => __( 'Content Type', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::SELECT,
-            'options' => [
-                'text' => __( 'Text', 'collapsible-element-lists' ),
-                'template' => __( 'Template', 'collapsible-element-lists' ),
-            ],
-            'default' => 'text',
-        ]
-    );
-    
-    $this->add_control(
-        'Collapsible_Elements_Widget_content',
-        [
-            'label' => __( 'Content', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::WYSIWYG,
-            'default' => __( "Content for the child elements", 'collapsible-element-lists' ),
-            'condition' => [
-                'Collapsible_Elements_Widget_content_type' => 'text',
-            ],
-        ]
-    );
-    
-    $this->add_control(
-        'Collapsible_Elements_Widget_content_template',
-        [
-            'label' => __( 'Content Template', 'collapsible-element-lists' ),
-            'type' => \Elementor\Controls_Manager::SELECT,
-            'options' => $this->get_elementor_page_templates(),
-            'condition' => [
-                'Collapsible_Elements_Widget_content_type' => 'template',
-            ],
-        ]
-    );
-
-}
-*/
 
     public function render() {
         $settings = $this->get_settings_for_display();
@@ -479,43 +395,43 @@ $this->add_control(
         $content_type = $settings['Collapsible_Elements_Widget_content_type'];
         $text_content = $settings['Collapsible_Elements_Widget_text_content'];
         $template_id = $settings['Collapsible_Elements_Widget_template_id'];
-$html = '<h2>Lista di elementi a scomparsa</h2>';
-for ($i = 0; $i < $number_of_parents; $i++) {
-$html .= '<div class="my-content">
-<button class="my-collapsible my-collapsible-parent">' . $parent_names[$i] . '</button>
-<div class="my-content closed">';
-for ($j = 0; $j < $number_of_children; $j++) {
-$html .= '<button class="my-collapsible">' . $child_names[$j] . '</button>
-<div class="my-content closed">';
-if ($content_type === 'text') {
-$html .= '<p>' . $text_content . '</p>';
-} else if ($content_type === 'template') {
-$html .= Elementor::instance()->frontend->get_builder_content_for_display( $template_id );
-}
-$html .= '</div>';
-}
-$html .= '</div>
-</div>';
-}
-$html .= '<script>
-$(document).ready(function(){
-var coll = document.getElementsByClassName("my-collapsible");
-var i;
-for (i = 0; i < coll.length; i++) {
-coll[i].addEventListener("click", function() {
-this.classList.toggle("active");
-var content = this.nextElementSibling;
-if (content.style.maxHeight){
-content.style.maxHeight = null;
-} else {
-content.style.maxHeight = content.scrollHeight + "px";
-}
-});
-}
-});
-</script>';
-return $html;
-}
+        $html = '<h2>Lista di elementi a scomparsa</h2>';
+        for ($i = 0; $i < $number_of_parents; $i++) {
+        $html .= '<div class="my-content">
+        <button class="my-collapsible my-collapsible-parent">' . $parent_names[$i] . '</button>
+        <div class="my-content closed">';
+        for ($j = 0; $j < $number_of_children; $j++) {
+        $html .= '<button class="my-collapsible">' . $child_names[$j] . '</button>
+        <div class="my-content closed">';
+        if ($content_type === 'text') {
+        $html .= '<p>' . $text_content . '</p>';
+        } else if ($content_type === 'template') {
+        $html .= Elementor::instance()->frontend->get_builder_content_for_display( $template_id );
+        }
+        $html .= '</div>';
+        }
+        $html .= '</div>
+        </div>';
+        }
+        $html .= '<script>
+        $(document).ready(function(){
+        var coll = document.getElementsByClassName("my-collapsible");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+        content.style.maxHeight = null;
+        } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        }
+        });
+        }
+        });
+        </script>';
+        return $html;
+    }
 
 }
 
