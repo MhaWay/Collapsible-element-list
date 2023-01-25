@@ -1,3 +1,5 @@
+
+
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -444,12 +446,12 @@ add_action( 'elementor/widgets/widgets_registered', 'Collapsible_Elements_Widget
 
 add_action( 'elementor/frontend/after_register_styles', function() {
 
-wp_register_style( 'collapsible-element-lists', plugin_dir_url( FILE ) . 'css/collapsible-element-lists.css', [], '1.0.0' );
+wp_register_style( 'collapsible-element-lists', plugin_dir_url( FILE ) . 'css/collapsible-element-lists.css', [], '1.0.0', true );
 wp_register_script( 'collapsible-element-lists', plugin_dir_url( FILE ) . 'js/collapsible-element-lists.js', [ 'jquery' ], '1.0.0', true );
 } );
 
 add_action( 'elementor/frontend/after_enqueue_styles', function() {
-    wp_enqueue_style( 'collapsible-element-lists-css', plugin_dir_url( FILE ) . 'collapsible-element-lists.css' );
+    wp_enqueue_style( 'collapsible-element-lists-css', plugin_dir_url( FILE ) . 'collapsible-element-lists.css' , [], '', true);
 });
 
 
