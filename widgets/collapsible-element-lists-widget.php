@@ -101,7 +101,7 @@ class Collapsible_Elements_Widget extends \Elementor\Widget_Base {
 	 */
 protected function _register_controls() {
     $this->start_controls_section(
-        'section_Collapsible_Elements_Widget',
+        'section_collapsible_element_lists',
         [
             'label' => __( 'Collapsible Element Lists', 'collapsible-element-lists' ),
         ]
@@ -378,6 +378,7 @@ protected function _register_controls() {
         'options' => $this->get_elementor_templates(),
         'default' => '',
         ]
+        
         );
 
     $this->end_controls_section();
