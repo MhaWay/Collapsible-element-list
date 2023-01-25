@@ -1,0 +1,30 @@
+/* Stile per gli elementi a scomparsa */
+.my-collapsible {
+    background-color: var(--collapsible-element-lists-background-color, #ddd);
+    color: var(--collapsible-element-lists-text-color, #444);
+    cursor: pointer;
+    padding: var(--collapsible-element-lists-padding, 18px);
+    width: var(--collapsible-element-lists-width, 100%);
+    border: var(--collapsible-element-lists-border, none);
+    text-align: var(--collapsible-element-lists-text-align, left);
+    outline: var(--collapsible-element-lists-outline, none);
+    font-size: var(--collapsible-element-lists-font-size, 15px);
+    font-family: var(--collapsible-element-lists-font-family, Arial);
+}
+
+.my-collapsible:hover {
+    background-color: var(--collapsible-element-lists-hover-color, #444);
+    color: var(--collapsible-element-lists-text-hover-color, #fff);
+}
+.closed{
+    display:none;
+}
+
+.my-content {
+    padding-top: var(--collapsible-element-lists-padding-top, 0);
+    padding-right: var(--collapsible-element-lists-padding-right, 0px);
+    padding-bottom: var(--collapsible-element-lists-padding-bottom, 0);
+    padding-left: var(--collapsible-element-lists-padding-left, 18px);
+    overflow: var(--collapsible-element-lists-overflow, hidden);
+    background-color: var(--collapsible-element-lists-content-bg, white);
+}
