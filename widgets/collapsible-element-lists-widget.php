@@ -469,7 +469,7 @@ exit;
 }
 
 // Run the plugin
-//Collapsible_Elements_Widget::instance();
+Collapsible_Elements_Widget::instance();
 
 
 
