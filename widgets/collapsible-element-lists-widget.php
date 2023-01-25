@@ -10,6 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
+ 
+use Elementor\Plugin;
+use Elementor\Widget_Base;
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+use Elementor\Scheme_Typography;
+use Elementor\Scheme_Color;
+
 class Collapsible_Elements_Widget extends \Elementor\Widget_Base {
 
 	/**
@@ -388,6 +396,7 @@ protected function _register_controls() {
 
     public function render() {
         $settings = $this->get_settings_for_display();
+    
         $number_of_parents = $settings['Collapsible_Elements_Widget_number_of_parents'];
         $number_of_children = $settings['Collapsible_Elements_Widget_number_of_children'];
         $parent_names = explode("\n", $settings['Collapsible_Elements_Widget_parent_names']);
@@ -395,43 +404,30 @@ protected function _register_controls() {
         $content_type = $settings['Collapsible_Elements_Widget_content_type'];
         $text_content = $settings['Collapsible_Elements_Widget_text_content'];
         $template_id = $settings['Collapsible_Elements_Widget_template_id'];
+    
         $html = '<h2>Lista di elementi a scomparsa</h2>';
+    
         for ($i = 0; $i < $number_of_parents; $i++) {
-        $html .= '<div class="my-content">
-        <button class="my-collapsible my-collapsible-parent">' . $parent_names[$i] . '</button>
-        <div class="my-content closed">';
-        for ($j = 0; $j < $number_of_children; $j++) {
-        $html .= '<button class="my-collapsible">' . $child_names[$j] . '</button>
-        <div class="my-content closed">';
-        if ($content_type === 'text') {
-        $html .= '<p>' . $text_content . '</p>';
-        } else if ($content_type === 'template') {
-        $html .= Elementor::instance()->frontend->get_builder_content_for_display( $template_id );
+            $html .= '<div class="my-content">
+                          <button class="my-collapsible my-collapsible-parent">' . $parent_names[$i] . '</button>
+                          <div class="my-content closed">';
+            for ($j = 0; $j < $number_of_children; $j++) {
+                $html .= '<button class="my-collapsible">' . $child_names[$j] . '</button>
+                          <div class="my-content closed">';
+                if ($content_type == 'text') {
+                    $html .= '<p>' . $text_content . ' ' . $j . '</p>';
+                } else if ($content_type == 'template') {
+                    $html .= Elementor::instance()->frontend->get_builder_content_for_display( $template_id );
+                }
+                $html .= '</div>';
+            }
+            $html .= '</div>
+                    </div>';
         }
-        $html .= '</div>';
-        }
-        $html .= '</div>
-        </div>';
-        }
-        $html .= '<script>
-        $(document).ready(function(){
-        var coll = document.getElementsByClassName("my-collapsible");
-        var i;
-        for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight){
-        content.style.maxHeight = null;
-        } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-        }
-        });
-        }
-        });
-        </script>';
-        return $html;
+    
+        echo $html;
     }
+
 
 }
 
